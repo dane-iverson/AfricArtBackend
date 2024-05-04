@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should create an Art document and match snapshot 1`] = `
+{
+  "__v": 0,
+  "artist": "Artist Name",
+  "description": "A beautiful piece of art.",
+  "image": "image_url",
+  "medium": "Oil on Canvas",
+  "size": "Large",
+  "title": "Artwork Title",
+}
+`;

@@ -40,7 +40,9 @@ app.use("/static", express.static(path.join(__dirname, "public/Images")));
 app.use(express.json());
 
 // Enable CORS with specified origin and credentials
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(
+  cors({ origin: "https://africartfrontend.onrender.com", credentials: true })
+);
 
 // Root route handler
 app.get("/", (request, response) => {

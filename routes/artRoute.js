@@ -42,48 +42,43 @@ const router = express.Router();
 router.use("/static", express.static(join(__dirname, "public/Images")));
 
 // Handle new art creation with file upload
-router.post(
-  "/",
-  verifyUser,
-  upload.single("file"),
-  async (request, response) => {
-    try {
-      // Validate request body
-      if (
-        !request.body.title ||
-        !request.body.artist ||
-        !request.body.size ||
-        !request.body.medium ||
-        !request.body.description ||
-        !request.file.filename
-      ) {
-        return response.status(400).send({
-          message:
-            "Send all required fields: title, artist, size, region, price, and image",
-        });
-      }
-
-      // Create new art object
-      const newArt = {
-        title: request.body.title,
-        artist: request.body.artist,
-        size: request.body.size,
-        medium: request.body.medium,
-        description: request.body.description,
-        image: request.file.filename,
-      };
-
-      // Create new art in the database
-      const art = await Art.create(newArt);
-
-      // Send success response with created art
-      return response.status(201).send(art);
-    } catch (error) {
-      console.log(error.message);
-      response.status(500).send({ message: error.message });
+router.post("/", upload.single("file"), async (request, response) => {
+  try {
+    // Validate request body
+    if (
+      !request.body.title ||
+      !request.body.artist ||
+      !request.body.size ||
+      !request.body.medium ||
+      !request.body.description ||
+      !request.file.filename
+    ) {
+      return response.status(400).send({
+        message:
+          "Send all required fields: title, artist, size, region, price, and image",
+      });
     }
+
+    // Create new art object
+    const newArt = {
+      title: request.body.title,
+      artist: request.body.artist,
+      size: request.body.size,
+      medium: request.body.medium,
+      description: request.body.description,
+      image: request.file.filename,
+    };
+
+    // Create new art in the database
+    const art = await Art.create(newArt);
+
+    // Send success response with created art
+    return response.status(201).send(art);
+  } catch (error) {
+    console.log(error.message);
+    response.status(500).send({ message: error.message });
   }
-);
+});
 
 // Retrieve all art in the gallery
 router.get("/", async (request, response) => {
